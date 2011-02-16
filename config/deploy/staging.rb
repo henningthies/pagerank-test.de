@@ -10,7 +10,7 @@ set :branch, 'master'
 set :user, 'pagerank-test.de'
 
 set :application, "pagerank-test.de"
-set :repository,  'ssh://gitolite@home.empuxa.com/baufoeg-code'
+set :repository,  'git@github.com:henningthies/pagerank-test.de.git'
 
 set :use_sudo, false
 set :rails_env, 'staging'
