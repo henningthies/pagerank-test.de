@@ -1,0 +1,69 @@
+!!! Strict
+%html{html_attrs}
+  
+  %head
+    %title
+      = h(yield(:title)  || "Pagerank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks")
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    %meta{"name"=>"author", :content => "Henning Thies"}
+    - if @domain.pageranks.empty?
+      %meta{"name"=>"description", :content => "PageRank - Test ist ein kostenloser Service zur &Uuml;berpr&uuml;fung des Google PageRanks"}
+      %meta{"name"=>"keywords", :content => "Pagerank-Test,Pagerank Test, Pagerank, Pagerank - Test, Seo, Suchmaschinenoptimierung, Search Engine Engineering"}
+    -else
+      %meta{"name"=>"description", :content => "#{@domain.url} hat einen PageRank&trade; von #{@domain.pagerank.rank}"}
+      %meta{"name"=>"keywords", :content => "#{@domain.url}, Pagerank-Test,Pagerank Test, Pagerank, Pagerank - Test, Seo, Suchmaschinenoptimierung, Search Engine Engineering"}
+    %meta{"name"=>"audience", :content => "Alle"}
+    %meta{"name"=>"expires", :content => "NEVER"}
+    %meta{"name"=>"language", :content => "German, de, deutsch"}
+    %meta{"name"=>"robots", :content => "index, follow"}
+    %meta{"name"=>"google-site-verification", :content=> "SOIU8yV5J2slhD5F1PY8p1bpMny6rmIf5GXesEWGNTU"}
+    %meta{"name"=>"y_key", :content => "1f9686138ad932b3"}
+    = stylesheet_link_tag  'reset', 'base', 'form', 'layout'
+    = yield(:head)
+  
+  %body
+    #wrapper
+      #header
+        %h1
+          = link_to "Pagerank - Test", root_path, :title => "Pagerank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"
+        %h2
+          = link_to "ein kostenloser Service zur &Uuml;berprüfung des Google PageRanks&trade;", root_path , :title => "Pagerank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"         
+      #main
+        #content
+          = yield
+        
+        #last_searches
+          %h4
+            zuletzt gesucht
+          %ul
+            %li
+              - @last_domains.each do |domain|
+                = link_to domain.url, "/#{domain.url}", :title => domain.url+ " | Pagerank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"
+
+        - semantic_form_for(@domain, :url => search_path, :html => {:method => :post, :id => "domain_form"}) do |f|
+          - f.inputs do
+            = f.input :url, :label => 'Url',  :input_html => { :class => 'input blue' }
+          - f.buttons do
+            = f.commit_button 'Testen', :input_html => { :class => 'button blue' }
+        - flash.each do |name, msg|
+          = content_tag :div, msg, :class => "flash_#{name}"
+      #footer
+        %ul
+          %li
+            = link_to "Impressum", "/impressum", :title => "Impressum", :title => "Impressum | PageRank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"
+          %li#copy
+            &copy; 2010 
+            = link_to "Henning Thies", "http://www.henning-thies.de", :title => "Henning Thies - Webentwickler aus L&uuml;beck | Portfolio", :target => "_blank"
+      
+      
+    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "highcharts.js", "application"
+    :plain
+      <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-11416387-2']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();</script>
