@@ -19,11 +19,11 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem "googlepagerank"
-  config.gem "haml"
-  config.gem "inherited_resources", :version => "1.0.3"
-  config.gem "formtastic"
-  config.gem "googlecharts"
+  #config.gem "googlepagerank"
+  #config.gem "haml"
+  #config.gem "inherited_resources", :version => "1.0.3"
+  #config.gem "formtastic"
+  #config.gem "googlecharts"
 
   
   # Only load the plugins named here, in the order given (default is alphabetical).

@@ -17,7 +17,7 @@ set :rails_env, 'staging'
 set :app_port, '3180'
 
 set :deploy_to, "/var/www/vhosts/#{application}/#{rails_env}"
-set :deploy_via, :remote_cache
+set :deploy_via, :copy
 set :ssh_options, {:forward_agent => true}
 
 set :port, 22
@@ -36,21 +36,9 @@ end
 
 
 namespace :deploy do
-  pid_file = "#{deploy_to}/shared/pids/passenger.#{app_port}.pid"
-  log_file = "#{deploy_to}/shared/log/passenger.#{app_port}.pid"
-  start_command = "passenger start #{current_path} -d -e #{rails_env} --port #{app_port} --pid-file=#{pid_file} --log-file=#{log_file}"
-  stop_command = "passenger stop #{current_path} --port #{app_port} --pid-file=#{pid_file}"
-  task :start do
-    run start_command
-  end
-  
-  task :stop do
-    run stop_command
-  end
-  
+
   task :restart do
-    run stop_command
-    run start_command
+    run "touch #{deploy_to}/tmp/restart.txt"
   end
   
   desc "Symlink the config files."
