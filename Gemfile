@@ -3,6 +3,7 @@ source "http://rubygems.org"
 
 gem "rails", "2.3.5", :require => nil
 
+gem "sqlite3-ruby", "=1.3.0"
 gem "googlepagerank"
 gem "haml"
 gem "inherited_resources", "1.0.3"
