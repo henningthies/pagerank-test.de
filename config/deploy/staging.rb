@@ -39,7 +39,7 @@ end
 namespace :deploy do
 
   task :restart do
-    run "touch #{deploy_to}/tmp/restart.txt"
+    run "touch #{deploy_to}/current/tmp/restart.txt"
   end
   
   desc "Symlink the config files."
