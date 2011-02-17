@@ -1,8 +1,9 @@
-#$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+#$:.unshift(File.expand_path('/etc', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 #require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 require "bundler/capistrano"
-#set :rvm_ruby_string, 'ruby-1.8.7-p330@baufoeg_staging'        # Or whatever env you want it to run in.#
-#set :rvm_type, :system
+#set :rvm_ruby_string, 'ruby-1.8.7-p330'        # Or whatever env you want it to run in.#
+#set :rvm_type, :user
+#set :rvm_bin_path, "/usr/local/bin/"
 
 set :scm, :git
 set :scm_user, 'gitolite'
