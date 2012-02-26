@@ -63,7 +63,7 @@ module Seo
 
     def request_uri
       # http://www.bigbold.com/snippets/posts/show/1260 + _ -> %5F
-      "http://toolbarqueries.google.com/search?client=navclient-auto&hl=en&ch=#{cn}&ie=UTF-8&oe=UTF-8&features=Rank&q=info:#{URI.escape(@uri, /[^-.!~*'()a-zA-Z\d]/)}"
+      "http://toolbarqueries.google.com/tbr?client=navclient-auto&hl=en&ch=#{cn}&ie=UTF-8&oe=UTF-8&features=Rank&q=info:#{URI.escape(@uri, /[^-.!~*'()a-zA-Z\d]/)}"
     end
  
     def page_rank(uri = @uri)
