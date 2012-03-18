@@ -28,6 +28,6 @@
       - @domain.chart_ranks.each do |pagerank|
         %tr
           %td.data_date<
-            = l(pagerank.created_at, :format => :short)
+            = l(pagerank.created_at.to_date, :format => :short)
           %td.data_rank<
             = pagerank.rank
