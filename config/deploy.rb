@@ -1,6 +1,9 @@
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 require "bundler/capistrano"
+require "whenever/capistrano"
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, 'production'
 
 load "deploy/assets"
 set :normalize_asset_timestamps, false
