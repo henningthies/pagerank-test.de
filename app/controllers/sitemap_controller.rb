@@ -5,5 +5,4 @@ class SitemapController < ApplicationController
       wants.xml {  }
     end
   end
-
 end

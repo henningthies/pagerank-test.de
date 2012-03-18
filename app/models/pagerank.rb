@@ -1,7 +1,7 @@
-require "googlepagerank"
 class Pagerank < ActiveRecord::Base
+  
   belongs_to :domain, :class_name => "Domain", :foreign_key => "domain_id"
-  before_validation_on_create :check_rank
+  before_validation :check_rank, :on => :create
   validates_presence_of :rank, :on => :create
   
   private

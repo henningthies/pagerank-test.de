@@ -27,7 +27,7 @@
         %h1
           = link_to "Pagerank - Test", root_path, :title => "Pagerank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"
         %h2
-          = link_to "ein kostenloser Service zur &Uuml;berprüfung des Google PageRanks&trade;", root_path , :title => "Pagerank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"         
+          = link_to "ein kostenloser Service zur Überprüfung des Google PageRanks™", root_path , :title => "Pagerank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"         
       #main
         #content
           = yield
@@ -40,11 +40,14 @@
               - @last_domains.each do |domain|
                 = link_to domain.url, "/#{domain.url}", :title => domain.url+ " | Pagerank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"
 
-        - semantic_form_for(@domain, :url => search_path, :html => {:method => :post, :id => "domain_form"}) do |f|
-          - f.inputs do
+        = semantic_form_for(@domain, :url => search_path, :html => {:method => :post, :id => "domain_form"}) do |f|
+          = f.inputs do
             = f.input :url, :label => 'Url',  :input_html => { :class => 'input blue' }
-          - f.buttons do
-            = f.commit_button 'Testen', :input_html => { :class => 'button blue' }
+          %fieldset.buttons
+            %ol
+              %li.commit.button
+                = f.submit 'Testen', :id => "domain_submit"
+            
         - flash.each do |name, msg|
           = content_tag :div, msg, :class => "flash_#{name}"
       #footer
@@ -53,10 +56,11 @@
             = link_to "Impressum", "/impressum", :title => "Impressum", :title => "Impressum | PageRank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks"
           %li#copy
             &copy; 2011
-            = link_to "Henning Thies", "http://www.henning-thies.de", :title => "Henning Thies - Webentwickler aus L&uuml;beck | Portfolio", :target => "_blank"
+            = link_to "Henning Thies", "http://henning-thies.de", :title => "Henning Thies - Webentwickler aus L&uuml;beck | Portfolio", :target => "_blank"
       
       
-    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "highcharts.js", "application"
+    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+    = javascript_include_tag "application"
     :plain
       <script type="text/javascript">
       var _gaq = _gaq || [];

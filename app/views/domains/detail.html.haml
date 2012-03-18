@@ -1,0 +1,35 @@
+- content_for :title do
+  #{@domain.url}  | PageRank - Test | ein kostenloser Service zur Überprüfung des Google PageRanks
+- content_for :head do
+  /[if IE]
+    = javascript_include_tag "excanvas.compiled.js"
+#result
+  %h3
+    Testergebnis
+  %p
+    = "URL: #{@domain.url}"
+    %br
+    %strong
+      = "PageRank&trade;: #{@domain.pageranks.last.rank}"
+    %br
+    = link_to "Seite besuchen", "http://#{@domain.url}", :title => @domain.url, :target => "_blank"
+
+#advertise
+
+#chart
+  %h3
+    PageRank-Verlauf
+  #chart-container
+  #data
+    %table#data
+      %tr
+        %th<
+          Datum
+        %th<
+          Rank
+      - @domain.chart_ranks.each do |pagerank|
+        %tr
+          %td.data_date<
+            = l(pagerank.created_at, :format => :short)
+          %td.data_rank<
+            = pagerank.rank

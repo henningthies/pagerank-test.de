@@ -5,7 +5,9 @@
 # by Vsevolod S. Balashov <vsevolod@balashov.name>
 # based on 3rd party code snippets (see comments)
 
+require 'rubygems'
 require 'uri'
+require 'cgi'
 require 'open-uri'
 
 module Seo
@@ -28,7 +30,12 @@ module Seo
     end
 
     def c2i(s,k=0)
-      ((s[k+3].to_i*0x100+s[k+2].to_i)*0x100+s[k+1].to_i)*0x100+s[k].to_i
+      sk = s[k].nil? ? 0 : s[k].ord
+      sk1 = s[k+1].nil? ? 0 : s[k+1].ord
+      sk2 = s[k+2].nil? ? 0 : s[k+2].ord
+      sk3 = s[k+3].nil? ? 0 : s[k+3].ord
+      
+      ((sk3*0x100+sk2)*0x100+sk1)*0x100+sk
     end
 
     def mix(a,b,c)
@@ -39,7 +46,7 @@ module Seo
       [a, b, c]
     end
 
-    def old_cn(iurl = 'info:' + @uri)
+    def old_cn(iurl = "info:#{@uri}")
       a = 0x9E3779B9; b = 0x9E3779B9; c = 0xE6359A60
       len = iurl.size 
       k = 0
@@ -63,7 +70,7 @@ module Seo
 
     def request_uri
       # http://www.bigbold.com/snippets/posts/show/1260 + _ -> %5F
-      "http://toolbarqueries.google.com/tbr?client=navclient-auto&hl=en&ch=#{cn}&ie=UTF-8&oe=UTF-8&features=Rank&q=info:#{URI.escape(@uri, /[^-.!~*'()a-zA-Z\d]/)}"
+ "http://toolbarqueries.google.com/tbr?client=navclient-auto&hl=en&ch=#{cn}&ie=UTF-8&oe=UTF-8&features=Rank&q=info:#{CGI.escape(@uri)}"
     end
  
     def page_rank(uri = @uri)
@@ -79,5 +86,7 @@ module Seo
 end
 
 if __FILE__ == $0 and 1 == ARGV.size
-  puts Seo::GooglePR.new(ARGV[0]).page_rank
+  seo = Seo::GooglePR.new(ARGV[0])
+  puts seo.page_rank
 end
+
