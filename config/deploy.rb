@@ -1,22 +1,45 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+require "bundler/capistrano"
 
-set :scm, :subversion
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+load "deploy/assets"
+set :normalize_asset_timestamps, false
+set :rvm_ruby_string, 'ruby-1.9.3-p0@pagerank'        # Or whatever env you want it to run in.#
+set :rvm_type, :system
 
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
+set :scm, :git
+set :branch, '3.2'
+set :user, 'deploy'
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+set :application, "pagerank"
+set :deploy_to, "/home/deploy/pagerank/"
 
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+set :use_sudo, false
+set :rails_env, 'production'
+
+set :deploy_via, :remote_cache
+set :repository,  'git@github.com:henningthies/pagerank-test.de.git'
+set :ssh_options, {:forward_agent => true}
+set :port, 22100
+
+role :app, "dev.henning-thies.de", :primary => true
+role :web, "dev.henning-thies.de", :primary => true
+
+# tasks
+namespace :deploy do
+  task :start, :roles => :app do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+
+  task :stop, :roles => :app do
+    # Do nothing.
+  end
+
+  desc "Restart Application"
+  task :restart, :roles => :app do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+  
+end
+
+
