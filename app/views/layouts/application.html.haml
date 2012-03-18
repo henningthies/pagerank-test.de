@@ -9,7 +9,7 @@
     - if @domain.pageranks.empty?
       %meta{"name"=>"description", :content => "PageRank - Test ist ein kostenloser Service zur &Uuml;berpr&uuml;fung des Google PageRanks"}
       %meta{"name"=>"keywords", :content => "Pagerank-Test,Pagerank Test, Pagerank, Pagerank - Test, Seo, Suchmaschinenoptimierung, Search Engine Engineering"}
-    -else
+    - else
       %meta{"name"=>"description", :content => "#{@domain.url} hat einen PageRank&trade; von #{@domain.pagerank.rank}"}
       %meta{"name"=>"keywords", :content => "#{@domain.url}, Pagerank-Test,Pagerank Test, Pagerank, Pagerank - Test, Seo, Suchmaschinenoptimierung, Search Engine Engineering"}
     %meta{"name"=>"audience", :content => "Alle"}
@@ -18,7 +18,7 @@
     %meta{"name"=>"robots", :content => "index, follow"}
     %meta{"name"=>"google-site-verification", :content=> "SOIU8yV5J2slhD5F1PY8p1bpMny6rmIf5GXesEWGNTU"}
     %meta{"name"=>"y_key", :content => "1f9686138ad932b3"}
-    = stylesheet_link_tag  'reset', 'base', 'form', 'layout'
+    = stylesheet_link_tag  'application'
     = yield(:head)
   
   %body

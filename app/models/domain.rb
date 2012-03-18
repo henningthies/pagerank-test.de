@@ -26,13 +26,10 @@ class Domain < ActiveRecord::Base
   def chart_ranks
     size = self.pageranks.size
     ranks = []
-    puts size
     if self.pageranks.size > 4
       factor = self.pageranks.size / 5.0
-      puts factor
       for c in 0..4
         i = (c * factor ).round
-        puts i
         ranks << self.pageranks[i]
       end
       ranks << self.pageranks.last
