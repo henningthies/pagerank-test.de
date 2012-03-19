@@ -8,7 +8,7 @@
     = "URL: #{@domain.url}"
     %br
     %strong
-      = "PageRank&trade;: #{@domain.pageranks.last.rank}"
+      = raw("PageRank&trade;: #{@domain.pageranks.last.rank}")
     %br
     = link_to "Seite besuchen", "http://#{@domain.url}", :title => @domain.url, :target => "_blank"
 
