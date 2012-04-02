@@ -32,7 +32,7 @@ class DomainsController < ApplicationController
   
   def detail
     @domain = Domain.find_by_url!(params[:url])
-    @domain.touch
+    @domain.save
     pageranks = @domain.pageranks
     
     respond_to do |wants|

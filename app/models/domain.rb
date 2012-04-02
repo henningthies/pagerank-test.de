@@ -15,7 +15,7 @@ class Domain < ActiveRecord::Base
   
   def check_rank
     if self.pagerank.nil? || self.pagerank.updated_at.to_date < (Time.now - 2.hours).to_date
-      Pagerank.create(:domain => self)
+      self.pageranks.create
     end
   end
   
